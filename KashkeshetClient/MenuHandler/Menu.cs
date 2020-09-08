@@ -25,7 +25,7 @@ namespace KashkeshetClient.MenuHandler
             IMenu numberMenuBuilder = new NumberMenuBuilder("Chat options : ", outputSystem, systemInput).
                 AddOptions("Get All Chats", new GetAllChatOption(serverHandler)).
                 AddOptions("Create Private Chat", new PrivateChatCreatorOption(name,serverHandler)).
-                AddOptions("Create Group Chat", new GroupChatCreatorOption(serverHandler)).
+                AddOptions("Create Group Chat", new GroupChatCreatorOption(name,serverHandler)).
                 AddOptions("Go into chat", new InsertToChatOption(serverHandler))
                 .Build();
 

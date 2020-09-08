@@ -1,4 +1,5 @@
 ﻿using KashkeshetClient.Enums;
+using KashkeshetClient.Models.ChatData;
 using KashkeshtWorkerServiceServer.Src;
 using Newtonsoft.Json;
 using System;
@@ -7,9 +8,11 @@ using System.Text;
 
 namespace KashkeshtWorkerServiceServer.Src.Models.ChatData
 {
-    public class GroupChatMessageModel
+    public class GroupChatMessageModel : MainRequest
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string GroupName { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<string> lsUsers { get; set; }
 
