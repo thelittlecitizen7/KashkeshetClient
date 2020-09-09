@@ -1,9 +1,11 @@
 ﻿using ClientChat;
+using KashkeshetClient.Enums;
 using KashkeshetClient.Factory;
 using KashkeshetClient.Models.ChatData;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -47,6 +49,17 @@ namespace KashkeshetClient.ServersHandler
             return responserStr;
         }
 
+        public List<ChatMessageModel> GetAllChatGroupModels() 
+        {
+            var dataChat = new MainRequest { RequestType = "GetAllChats" };
+            string message = Utils.SerlizeObject(dataChat);
+            _requestHandler.SendData(Client, message);
+            var response = _responseHandler.GetResponse(Client);
+            var allChatsResponse = Utils.DeSerlizeObject<AllChatsMessage>(response);
+            return allChatsResponse.Chats.Where(c => c.ChatType != ChatType.Private).ToList();
+
+        }
+
         public string GetAllUserConnected()
         {
             var dataChat = new MainRequest { RequestType = "GetAllUserConnected" };
@@ -61,6 +74,16 @@ namespace KashkeshetClient.ServersHandler
         {
             string message = Utils.SerlizeObject(request);
             _requestHandler.SendData(Client, message);
+        }
+
+
+        public void UpdateChat(MainRequest request)
+        {
+            string message = Utils.SerlizeObject(request);
+            _requestHandler.SendData(Client, message);
+            var response = _responseHandler.GetResponse(Client);
+            var responserStr = new GetResponseFactory().GetResponse(response);
+            Console.WriteLine(responserStr);
         }
 
         public void InsertToChat(string chatId)

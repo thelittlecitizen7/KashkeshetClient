@@ -76,9 +76,6 @@ namespace KashkeshetClient.MenuHandler.Options
 
             return true;
         }
-        public bool IsUserExist(string name, List<string> Names)
-        {
-            return Names.Any(n => n == name);
-        }
+      
     }
 }
